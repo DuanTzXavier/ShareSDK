@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.PopupWindow;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by bask on 6/29/16.
  */
@@ -19,36 +22,25 @@ public class BaskShare {
     private static final String BASKSHARE = "Bask Share";
 
     private Activity mActivity;
-    private PopupWindow mPopupWindow;
+    private PlatformView mPopupWindow;
+    private List<Platform> mPlatformList = new ArrayList<>();
+    private View mRootView;
 
     public BaskShare(Activity activity) {
         this.mActivity = activity;
-        initView(mActivity);
-    }
-
-    private void initView(Context context) {
-        View rootView = LayoutInflater.from(context).inflate(R.layout.container, null);
-        FrameLayout outMostContainer = (FrameLayout) rootView.findViewById(R.id.outmost_container);
-        outMostContainer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
-        mPopupWindow = new PopupWindow(rootView);
-        mPopupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-        mPopupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
     }
 
     public void show(){
+        mPopupWindow = new PlatformView(mActivity, mPlatformList);
         mPopupWindow.setFocusable(true);
         mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
         mPopupWindow.showAtLocation(this.mActivity.getWindow().getDecorView(), 80, 0, 0);
+        Log.i(BASKSHARE, mPopupWindow.toString());
     }
 
-    public void dismiss(){
-        mPopupWindow.setFocusable(false);
-        mPopupWindow.dismiss();
+    public void setPlatForm(List<Platform> platforms){
+        mPlatformList.clear();
+        mPlatformList.addAll(platforms);
     }
 
 }

@@ -7,17 +7,12 @@
     android:clickable="true"
     android:background="@color/bgColor_overlay">
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/content_container"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_gravity="bottom">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="success"
-            android:textSize="100sp"/>
-    </FrameLayout>
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        android:orientation="horizontal"/>
 
 </FrameLayout>
