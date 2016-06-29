@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.PopupWindow;
 
 /**
@@ -27,16 +28,27 @@ public class BaskShare {
 
     private void initView(Context context) {
         View rootView = LayoutInflater.from(context).inflate(R.layout.container, null);
+        FrameLayout outMostContainer = (FrameLayout) rootView.findViewById(R.id.outmost_container);
+        outMostContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+            }
+        });
         mPopupWindow = new PopupWindow(rootView);
         mPopupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-        mPopupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        mPopupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
     }
 
     public void show(){
         mPopupWindow.setFocusable(true);
         mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
         mPopupWindow.showAtLocation(this.mActivity.getWindow().getDecorView(), 80, 0, 0);
-        Log.i(BASKSHARE, this.mActivity.getWindow().getDecorView().toString());
+    }
+
+    public void dismiss(){
+        mPopupWindow.setFocusable(false);
+        mPopupWindow.dismiss();
     }
 
 }
