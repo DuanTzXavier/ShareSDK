@@ -10,7 +10,8 @@ public class  Platform {
     private Drawable icon;
     private ShareAction action;
 
-    public Platform() {
+    public Platform(ShareAction action) {
+        this.action = action;
     }
 
     public Platform(String platformName, Drawable icon) {

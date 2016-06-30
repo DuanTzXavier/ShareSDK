@@ -37,8 +37,8 @@ public class BaskShareImp implements ShareAction {
         msg.title = "这里填写标题";
         msg.description = "这里填写内容";
         //这里替换一张自己工程里的图片资源
-        Bitmap thumb = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.umeng_socialize_wechat);
-        msg.setThumbImage(thumb);
+//        Bitmap thumb = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.umeng_socialize_wechat);
+//        msg.setThumbImage(thumb);
 
         SendMessageToWX.Req req = new SendMessageToWX.Req();
         req.transaction = String.valueOf(System.currentTimeMillis());

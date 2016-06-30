@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.tomduan.shareroot.BaskShare;
 import com.tomduan.shareroot.Platform;
+import com.tomduan.wechatsdk.BaskShareImp;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -31,13 +32,13 @@ public class MainActivity extends AppCompatActivity {
         BaskShare baskShare = new BaskShare(this);
         baskShare.setOneLineCount(3);
         baskShare.setPlatForm(
-                new Platform(),
-                new Platform(),
-                new Platform(),
-                new Platform(),
-                new Platform(),
-                new Platform(),
-                new Platform());
+                new Platform(new BaskShareImp(this)),
+                new Platform(new BaskShareImp(this)),
+                new Platform(new BaskShareImp(this)),
+                new Platform(new BaskShareImp(this)),
+                new Platform(new BaskShareImp(this)),
+                new Platform(new BaskShareImp(this)),
+                new Platform(new BaskShareImp(this)));
         baskShare.show();
     }
 }

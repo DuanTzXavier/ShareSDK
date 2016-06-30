@@ -25,4 +25,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.0.0'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile project(path: ':shareroot')
+    compile project(path: ':wechatsdk')
 }
