@@ -10,8 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.tomduan.wechatsdk.Utils;
-
 import java.util.List;
 
 /**
@@ -66,13 +64,20 @@ public class PlatformView extends PopupWindow {
                 mPlatformList.size() / mOneLineCount + 1;
     }
 
-    private void initPlatForms(LinearLayout contentContainer, int index) {
+    private void initPlatForms(LinearLayout contentContainer, final int index) {
         View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_default, null);
         if (index < mPlatformList.size()){
             ImageView icon = (ImageView) rootView.findViewById(R.id.platform_icon);
             TextView name = (TextView) rootView.findViewById(R.id.platform_name);
-            icon.setImageResource(com.tomduan.wechatsdk.R.drawable.wechat);
-            name.setText(Utils.PLATFORM_NAME);
+//            icon.setImageResource(com.tomduan.wechatsdk.R.drawable.umeng_socialize_wechat);
+//            name.setText(Utils.PLATFORM_NAME);
+
+            rootView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mPlatformList.get(index).getAction();
+                }
+            });
         }
         contentContainer.addView(rootView, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,

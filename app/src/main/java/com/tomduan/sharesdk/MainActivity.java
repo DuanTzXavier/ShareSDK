@@ -30,7 +30,14 @@ public class MainActivity extends AppCompatActivity {
     public void test(){
         BaskShare baskShare = new BaskShare(this);
         baskShare.setOneLineCount(3);
-        baskShare.setPlatForm(Platform.EMAIL, Platform.EMAIL, Platform.EMAIL, Platform.EMAIL);
+        baskShare.setPlatForm(
+                new Platform(),
+                new Platform(),
+                new Platform(),
+                new Platform(),
+                new Platform(),
+                new Platform(),
+                new Platform());
         baskShare.show();
     }
 }
