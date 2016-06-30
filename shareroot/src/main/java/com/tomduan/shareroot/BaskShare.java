@@ -13,6 +13,7 @@ import android.widget.FrameLayout;
 import android.widget.PopupWindow;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -24,23 +25,27 @@ public class BaskShare {
     private Activity mActivity;
     private PlatformView mPopupWindow;
     private List<Platform> mPlatformList = new ArrayList<>();
-    private View mRootView;
+    private int mOneLineCount = 4;
 
     public BaskShare(Activity activity) {
         this.mActivity = activity;
     }
 
     public void show(){
-        mPopupWindow = new PlatformView(mActivity, mPlatformList);
+        mPopupWindow = new PlatformView(mActivity, mPlatformList, mOneLineCount);
         mPopupWindow.setFocusable(true);
         mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
         mPopupWindow.showAtLocation(this.mActivity.getWindow().getDecorView(), 80, 0, 0);
         Log.i(BASKSHARE, mPopupWindow.toString());
     }
 
-    public void setPlatForm(List<Platform> platforms){
+    public void setPlatForm(Platform... platForm){
         mPlatformList.clear();
-        mPlatformList.addAll(platforms);
+        mPlatformList = Arrays.asList(platForm);
+    }
+
+    public void setOneLineCount(int count){
+        this.mOneLineCount = count;
     }
 
 }

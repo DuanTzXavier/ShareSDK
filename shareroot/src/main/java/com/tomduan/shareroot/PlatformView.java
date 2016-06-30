@@ -1,7 +1,6 @@
 package com.tomduan.shareroot;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +8,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.tomduan.wechatsdk.Utils;
 
 import java.util.List;
 
@@ -21,13 +21,15 @@ public class PlatformView extends PopupWindow {
 
     private final List<Platform> mPlatformList;
     private Context mContext;
+    private final int mOneLineCount;
 
-    public PlatformView(Context context, List<Platform> platforms) {
+    public PlatformView(Context context, List<Platform> platforms, int count) {
         super(context);
         this.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         this.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
         this.mPlatformList = platforms;
         this.mContext = context;
+        this.mOneLineCount = count;
         initView();
     }
 
@@ -36,11 +38,20 @@ public class PlatformView extends PopupWindow {
         setContentView(rootView);
         FrameLayout outMost = (FrameLayout) rootView.findViewById(R.id.outmost_container);
         LinearLayout contentContainer = (LinearLayout) rootView.findViewById(R.id.content_container);
-        contentContainer.removeAllViews();
-        initPlatForms(contentContainer);
-        initPlatForms(contentContainer);
-        initPlatForms(contentContainer);
-        initPlatForms(contentContainer);
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                1);
+
+        for (int line = 0;line < getLineCount();line++){
+            LinearLayout lineContainer = new LinearLayout(mContext);
+            lineContainer.setOrientation(LinearLayout.HORIZONTAL);
+            for (int i = 0;i < mOneLineCount;i++){
+                initPlatForms(lineContainer, line * mOneLineCount + i);
+            }
+            contentContainer.addView(lineContainer, params);
+        }
         outMost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,13 +60,23 @@ public class PlatformView extends PopupWindow {
         });
     }
 
-    private void initPlatForms(LinearLayout contentContainer) {
+    private int getLineCount() {
+        return 0 == mPlatformList.size() % mOneLineCount ?
+                mPlatformList.size() / mOneLineCount :
+                mPlatformList.size() / mOneLineCount + 1;
+    }
+
+    private void initPlatForms(LinearLayout contentContainer, int index) {
         View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_default, null);
-        ImageView icon = (ImageView) rootView.findViewById(R.id.platform_icon);
-        TextView name = (TextView) rootView.findViewById(R.id.platform_name);
-        icon.setImageResource(com.tomduan.wechatsdk.R.drawable.wechat);
-//        name.setText(com.tomduan.wechatsdk.R.string.name);
-        Log.i("name", String.valueOf(com.tomduan.wechatsdk.R.string.name));
-        contentContainer.addView(rootView, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1));
+        if (index < mPlatformList.size()){
+            ImageView icon = (ImageView) rootView.findViewById(R.id.platform_icon);
+            TextView name = (TextView) rootView.findViewById(R.id.platform_name);
+            icon.setImageResource(com.tomduan.wechatsdk.R.drawable.wechat);
+            name.setText(Utils.PLATFORM_NAME);
+        }
+        contentContainer.addView(rootView, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                1));
     }
 }

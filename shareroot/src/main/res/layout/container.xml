@@ -13,6 +13,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="@color/white"
-        android:orientation="horizontal"/>
+        android:orientation="vertical"/>
 
 </FrameLayout>
