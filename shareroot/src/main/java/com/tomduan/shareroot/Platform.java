@@ -12,6 +12,8 @@ public class  Platform {
 
     public Platform(ShareAction action) {
         this.action = action;
+        this.platformName = action.getPlatform().getPlatformName();
+        this.icon = action.getPlatform().getIcon();
     }
 
     public Platform(String platformName, Drawable icon) {

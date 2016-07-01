@@ -7,4 +7,5 @@ public interface ShareAction {
 
     void share(ShareMedia media);
 
+    Platform getPlatform();
 }

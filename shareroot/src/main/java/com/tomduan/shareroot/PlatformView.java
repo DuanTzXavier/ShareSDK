@@ -69,9 +69,8 @@ public class PlatformView extends PopupWindow {
         if (index < mPlatformList.size()){
             ImageView icon = (ImageView) rootView.findViewById(R.id.platform_icon);
             final TextView name = (TextView) rootView.findViewById(R.id.platform_name);
-//            icon.setImageResource(com.tomduan.wechatsdk.R.drawable.umeng_socialize_wechat);
-//            name.setText(Utils.PLATFORM_NAME);
-
+            icon.setImageDrawable(mPlatformList.get(index).getIcon());
+            name.setText(mPlatformList.get(index).getPlatformName());
             rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

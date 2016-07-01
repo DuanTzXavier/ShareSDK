@@ -8,24 +8,33 @@ import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.tomduan.shareroot.Platform;
 import com.tomduan.shareroot.ShareAction;
 import com.tomduan.shareroot.ShareMedia;
 
 /**
  * Created by bask on 6/30/16.
  */
-public class BaskShareImp implements ShareAction {
+public class WeChatFriends implements ShareAction {
 
     private IWXAPI wxapi;
     private Context mContext;
 
-    public BaskShareImp(Context context) {
+    public WeChatFriends(Context context) {
         wxapi = WXAPIFactory.createWXAPI(context, "wxae2c6f32c2608a89");
         wxapi.registerApp("wxae2c6f32c2608a89");
+        mContext = context;
     }
     @Override
     public void share(ShareMedia media) {
         wechatShare(0);
+    }
+
+    @Override
+    public Platform getPlatform() {
+        return new Platform(
+                mContext.getResources().getString(R.string.name),
+                mContext.getResources().getDrawable(R.drawable.umeng_socialize_wechat));
     }
 
     private void wechatShare(int flag){
