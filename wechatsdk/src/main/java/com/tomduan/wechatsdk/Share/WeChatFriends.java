@@ -34,8 +34,8 @@ public class WeChatFriends implements ShareAction {
     @Override
     public Platform getPlatform() {
         return new Platform(
-                mContext.getResources().getString(R.string.name),
-                mContext.getResources().getDrawable(R.drawable.umeng_socialize_wechat));
+                mContext.getResources().getString(R.string.wechat),
+                mContext.getResources().getDrawable(R.drawable.wechat));
     }
 
     private void wechatShare(int flag){

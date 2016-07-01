@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/shareroot/shareroot.iml" filepath="$PROJECT_DIR$/shareroot/shareroot.iml" />
       <module fileurl="file://$PROJECT_DIR$/tencentsdk/tencentsdk.iml" filepath="$PROJECT_DIR$/tencentsdk/tencentsdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/wechatsdk/wechatsdk.iml" filepath="$PROJECT_DIR$/wechatsdk/wechatsdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/weibosdk/weibosdk.iml" filepath="$PROJECT_DIR$/weibosdk/weibosdk.iml" />
     </modules>
   </component>
 </project>

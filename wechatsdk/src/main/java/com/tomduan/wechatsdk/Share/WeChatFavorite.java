@@ -33,8 +33,8 @@ public class WeChatFavorite implements ShareAction {
     @Override
     public Platform getPlatform() {
         return new Platform(
-                mContext.getResources().getString(R.string.name),
-                mContext.getResources().getDrawable(R.drawable.umeng_socialize_wechat));
+                mContext.getResources().getString(R.string.favorite),
+                mContext.getResources().getDrawable(R.drawable.favorite));
     }
 
     private void wechatShare(int flag){

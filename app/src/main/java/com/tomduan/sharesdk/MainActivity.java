@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.test)
     public void test(){
         BaskShare baskShare = new BaskShare(this);
-        baskShare.setOneLineCount(3);
         baskShare.setPlatForm(
                 new Platform(new WeChatCircle(this)),
                 new Platform(new WeChatFavorite(this)),

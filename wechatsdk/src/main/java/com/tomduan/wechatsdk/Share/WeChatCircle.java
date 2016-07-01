@@ -33,8 +33,8 @@ public class WeChatCircle implements ShareAction {
     @Override
     public Platform getPlatform() {
         return new Platform(
-                mContext.getResources().getString(R.string.name),
-                mContext.getResources().getDrawable(R.drawable.umeng_socialize_wechat));
+                mContext.getResources().getString(R.string.circle),
+                mContext.getResources().getDrawable(R.drawable.circle));
     }
 
     private void wechatShare(int flag){
