@@ -6,7 +6,9 @@ import android.widget.TextView;
 
 import com.tomduan.shareroot.BaskShare;
 import com.tomduan.shareroot.Platform;
-import com.tomduan.wechatsdk.WeChatFriends;
+import com.tomduan.wechatsdk.Share.WeChatCircle;
+import com.tomduan.wechatsdk.Share.WeChatFavorite;
+import com.tomduan.wechatsdk.Share.WeChatFriends;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -22,9 +24,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
-
-//        test.setText(com.tomduan.wechatsdk.R.string.app_name);
     }
 
     @OnClick(R.id.test)
@@ -32,12 +31,8 @@ public class MainActivity extends AppCompatActivity {
         BaskShare baskShare = new BaskShare(this);
         baskShare.setOneLineCount(3);
         baskShare.setPlatForm(
-                new Platform(new WeChatFriends(this)),
-                new Platform(new WeChatFriends(this)),
-                new Platform(new WeChatFriends(this)),
-                new Platform(new WeChatFriends(this)),
-                new Platform(new WeChatFriends(this)),
-                new Platform(new WeChatFriends(this)),
+                new Platform(new WeChatCircle(this)),
+                new Platform(new WeChatFavorite(this)),
                 new Platform(new WeChatFriends(this)));
         baskShare.show();
     }
