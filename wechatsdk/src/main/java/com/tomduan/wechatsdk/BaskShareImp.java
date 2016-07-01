@@ -1,9 +1,7 @@
 package com.tomduan.wechatsdk;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
@@ -22,8 +20,8 @@ public class BaskShareImp implements ShareAction {
     private Context mContext;
 
     public BaskShareImp(Context context) {
-        wxapi = WXAPIFactory.createWXAPI(context, "");
-        wxapi.registerApp("");
+        wxapi = WXAPIFactory.createWXAPI(context, "wxae2c6f32c2608a89");
+        wxapi.registerApp("wxae2c6f32c2608a89");
     }
     @Override
     public void share(ShareMedia media) {
@@ -45,5 +43,7 @@ public class BaskShareImp implements ShareAction {
         req.message = msg;
         req.scene = flag == 0 ? SendMessageToWX.Req.WXSceneSession : SendMessageToWX.Req.WXSceneTimeline;
         wxapi.sendReq(req);
+
+        Log.i("wxshare", "share");
     }
 }

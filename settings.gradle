@@ -1,1 +1,1 @@
-include ':app', ':wechatsdk', ':shareroot'
+include ':app', ':wechatsdk', ':shareroot', ':tencentsdk'

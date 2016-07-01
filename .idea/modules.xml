@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/ShareSDK.iml" filepath="$PROJECT_DIR$/ShareSDK.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/shareroot/shareroot.iml" filepath="$PROJECT_DIR$/shareroot/shareroot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tencentsdk/tencentsdk.iml" filepath="$PROJECT_DIR$/tencentsdk/tencentsdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/wechatsdk/wechatsdk.iml" filepath="$PROJECT_DIR$/wechatsdk/wechatsdk.iml" />
     </modules>
   </component>

@@ -1,6 +1,7 @@
 package com.tomduan.wechatsdk;
 
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
@@ -18,6 +19,6 @@ public class WXCallbackActivity extends AppCompatActivity implements IWXAPIEvent
 
     @Override
     public void onResp(BaseResp baseResp) {
-
+        Log.i("error", baseResp.errStr + "code" + baseResp.errCode);
     }
 }
