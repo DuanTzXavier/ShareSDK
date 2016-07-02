@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.tomduan.shareroot.BaskShare;
 import com.tomduan.shareroot.Platform;
+import com.tomduan.tencentsdk.QQFriends;
 import com.tomduan.wechatsdk.Share.WeChatCircle;
 import com.tomduan.wechatsdk.Share.WeChatFavorite;
 import com.tomduan.wechatsdk.Share.WeChatFriends;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     public void test(){
         BaskShare baskShare = new BaskShare(this);
         baskShare.setPlatForm(
+                new Platform(new QQFriends(this)),
                 new Platform(new WeChatCircle(this)),
                 new Platform(new WeChatFavorite(this)),
                 new Platform(new WeChatFriends(this)));

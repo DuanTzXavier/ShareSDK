@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TencentSDK</string>
+    <string name="qq">QQ</string>
+    <string name="q_zone">QQ空间</string>
 </resources>

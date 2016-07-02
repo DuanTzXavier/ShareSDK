@@ -26,4 +26,5 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
     compile project(path: ':shareroot')
     compile project(path: ':wechatsdk')
+    compile project(path: ':tencentsdk')
 }
