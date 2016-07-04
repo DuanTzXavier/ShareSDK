@@ -6,10 +6,11 @@ import android.widget.TextView;
 
 import com.tomduan.shareroot.BaskShare;
 import com.tomduan.shareroot.Platform;
-import com.tomduan.tencentsdk.QQFriends;
-import com.tomduan.wechatsdk.Share.WeChatCircle;
-import com.tomduan.wechatsdk.Share.WeChatFavorite;
-import com.tomduan.wechatsdk.Share.WeChatFriends;
+import com.tomduan.tencentsdk.share.QQFriends;
+import com.tomduan.tencentsdk.share.Q_zone;
+import com.tomduan.wechatsdk.share.WeChatCircle;
+import com.tomduan.wechatsdk.share.WeChatFavorite;
+import com.tomduan.wechatsdk.share.WeChatFriends;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     public void test(){
         BaskShare baskShare = new BaskShare(this);
         baskShare.setPlatForm(
+                new Platform(new Q_zone(this)),
                 new Platform(new QQFriends(this)),
                 new Platform(new WeChatCircle(this)),
                 new Platform(new WeChatFavorite(this)),

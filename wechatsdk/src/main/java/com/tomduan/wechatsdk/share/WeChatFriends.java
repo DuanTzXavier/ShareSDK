@@ -1,5 +1,6 @@
-package com.tomduan.wechatsdk.Share;
+package com.tomduan.wechatsdk.share;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
@@ -12,29 +13,26 @@ import com.tomduan.shareroot.Platform;
 import com.tomduan.shareroot.ShareAction;
 import com.tomduan.shareroot.ShareMedia;
 import com.tomduan.wechatsdk.R;
+import com.tomduan.wechatsdk.WeChatPlatform;
 
 /**
- * Created by bask on 7/1/16.
+ * Created by bask on 6/30/16.
  */
-public class WeChatCircle implements ShareAction {
-    private IWXAPI wxapi;
-    private Context mContext;
+public class WeChatFriends extends WeChatPlatform implements ShareAction {
 
-    public WeChatCircle(Context context) {
-        wxapi = WXAPIFactory.createWXAPI(context, "wxae2c6f32c2608a89");
-        wxapi.registerApp("wxae2c6f32c2608a89");
-        mContext = context;
+    public WeChatFriends(Activity activity) {
+        super(activity.getApplication());
     }
     @Override
     public void share(ShareMedia media) {
-        wechatShare(1);
+        wechatShare(0);
     }
 
     @Override
     public Platform getPlatform() {
         return new Platform(
-                mContext.getResources().getString(R.string.circle),
-                mContext.getResources().getDrawable(R.drawable.circle));
+                getContext().getResources().getString(R.string.wechat),
+                getContext().getResources().getDrawable(R.drawable.wechat));
     }
 
     private void wechatShare(int flag){
@@ -50,7 +48,7 @@ public class WeChatCircle implements ShareAction {
         SendMessageToWX.Req req = new SendMessageToWX.Req();
         req.transaction = String.valueOf(System.currentTimeMillis());
         req.message = msg;
-        req.scene = SendMessageToWX.Req.WXSceneTimeline;
+        req.scene = SendMessageToWX.Req.WXSceneSession;
         wxapi.sendReq(req);
 
         Log.i("wxshare", "share");

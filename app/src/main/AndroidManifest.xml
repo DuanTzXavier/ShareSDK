@@ -8,6 +8,12 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data android:value="1105513452" android:name="qq_id"/>
+        <meta-data android:value="pz6Q9sauoPZnblUc" android:name="qq_key"/>
+        <meta-data android:value="wxae2c6f32c2608a89" android:name="wechat_id"/>
+        <meta-data android:value="37240471b51c3f0e87062f92b15c3249" android:name="wechat_secret"/>
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

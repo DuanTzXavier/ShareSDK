@@ -1,5 +1,6 @@
-package com.tomduan.wechatsdk.Share;
+package com.tomduan.wechatsdk.share;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
@@ -12,18 +13,15 @@ import com.tomduan.shareroot.Platform;
 import com.tomduan.shareroot.ShareAction;
 import com.tomduan.shareroot.ShareMedia;
 import com.tomduan.wechatsdk.R;
+import com.tomduan.wechatsdk.WeChatPlatform;
 
 /**
  * Created by bask on 7/1/16.
  */
-public class WeChatFavorite implements ShareAction {
-    private IWXAPI wxapi;
-    private Context mContext;
+public class WeChatFavorite extends WeChatPlatform implements ShareAction {
 
-    public WeChatFavorite(Context context) {
-        wxapi = WXAPIFactory.createWXAPI(context, "wxae2c6f32c2608a89");
-        wxapi.registerApp("wxae2c6f32c2608a89");
-        mContext = context;
+    public WeChatFavorite(Activity activity) {
+        super(activity.getApplication());
     }
     @Override
     public void share(ShareMedia media) {
@@ -33,8 +31,8 @@ public class WeChatFavorite implements ShareAction {
     @Override
     public Platform getPlatform() {
         return new Platform(
-                mContext.getResources().getString(R.string.favorite),
-                mContext.getResources().getDrawable(R.drawable.favorite));
+                getContext().getResources().getString(R.string.favorite),
+                getContext().getResources().getDrawable(R.drawable.favorite));
     }
 
     private void wechatShare(int flag){

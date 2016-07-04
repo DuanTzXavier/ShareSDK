@@ -1,7 +1,6 @@
-package com.tomduan.tencentsdk;
+package com.tomduan.tencentsdk.share;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 
 import com.tencent.open.SocialConstants;
@@ -9,17 +8,21 @@ import com.tencent.tauth.Tencent;
 import com.tomduan.shareroot.Platform;
 import com.tomduan.shareroot.ShareAction;
 import com.tomduan.shareroot.ShareMedia;
+import com.tomduan.tencentsdk.R;
+import com.tomduan.tencentsdk.TencentPlatform;
+import com.tomduan.tencentsdk.TencentRequestListener;
 
 /**
  * Created by bask on 7/1/16.
  */
-public class QQFriends implements ShareAction {
+public class QQFriends extends TencentPlatform implements ShareAction {
 
     private Activity activity;
 
     TencentRequestListener listener = new TencentRequestListener();
 
     public QQFriends(Activity activity) {
+        super(activity);
         this.activity = activity;
     }
 
@@ -27,7 +30,7 @@ public class QQFriends implements ShareAction {
     @Override
     public void share(ShareMedia media) {
 
-        Tencent mTencent = Tencent.createInstance("1105513452", activity);
+//        Tencent mTencent = Tencent.createInstance(getAppKey(), activity);
 
         Bundle bundle = new Bundle();
 //这条分享消息被好友点击后的跳转URL。
@@ -42,7 +45,7 @@ public class QQFriends implements ShareAction {
 //手Q客户端顶部，替换“返回”按钮文字，如果为空，用返回代替
         bundle.putString(SocialConstants.PARAM_APPNAME, "??我在测试");
 //标识该消息的来源应用，值为应用名称+AppId。
-        bundle.putString(SocialConstants.PARAM_APP_SOURCE, "星期几" + "1105513452");
+        bundle.putString(SocialConstants.PARAM_APP_SOURCE, "ShareSDK" + "1105513452");
 
         mTencent.shareToQQ(this.activity, bundle , listener);
     }
