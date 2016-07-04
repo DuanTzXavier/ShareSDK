@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.tencent.connect.share.QzoneShare;
 import com.tencent.tauth.Tencent;
+import com.tomduan.shareroot.BaskShare;
 import com.tomduan.shareroot.Platform;
 import com.tomduan.shareroot.ShareAction;
 import com.tomduan.shareroot.ShareMedia;
@@ -18,8 +19,6 @@ import java.util.ArrayList;
  * Created by bask on 7/3/16.
  */
 public class Q_zone extends TencentPlatform implements ShareAction {
-
-    TencentRequestListener listener = new TencentRequestListener();
 
     public Q_zone(Activity activity) {
         super(activity);
@@ -36,7 +35,7 @@ public class Q_zone extends TencentPlatform implements ShareAction {
         ArrayList<String> arrayList  = new ArrayList<String>();   //分享至QQ空间支持多图片分享
         arrayList.add("http://img3.cache.netease.com/photo/0005/2013-03-07/8PBKS8G400BV0005.jpg");
         params.putStringArrayList(QzoneShare.SHARE_TO_QQ_IMAGE_URL,arrayList);
-        mTencent.shareToQzone(getActivity(), params , listener);
+        mTencent.shareToQzone(getActivity(), params , getListener());
     }
 
     @Override

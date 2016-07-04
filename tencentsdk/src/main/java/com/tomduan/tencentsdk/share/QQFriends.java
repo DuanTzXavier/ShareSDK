@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.tencent.open.SocialConstants;
 import com.tencent.tauth.Tencent;
+import com.tomduan.shareroot.BaskShare;
 import com.tomduan.shareroot.Platform;
 import com.tomduan.shareroot.ShareAction;
 import com.tomduan.shareroot.ShareMedia;
@@ -18,8 +19,6 @@ import com.tomduan.tencentsdk.TencentRequestListener;
 public class QQFriends extends TencentPlatform implements ShareAction {
 
     private Activity activity;
-
-    TencentRequestListener listener = new TencentRequestListener();
 
     public QQFriends(Activity activity) {
         super(activity);
@@ -47,7 +46,7 @@ public class QQFriends extends TencentPlatform implements ShareAction {
 //标识该消息的来源应用，值为应用名称+AppId。
         bundle.putString(SocialConstants.PARAM_APP_SOURCE, "ShareSDK" + "1105513452");
 
-        mTencent.shareToQQ(this.activity, bundle , listener);
+        mTencent.shareToQQ(this.activity, bundle , getListener());
     }
 
     @Override

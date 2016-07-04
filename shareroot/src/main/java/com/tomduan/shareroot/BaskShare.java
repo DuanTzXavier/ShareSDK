@@ -2,6 +2,7 @@ package com.tomduan.shareroot;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -27,6 +28,10 @@ public class BaskShare {
     private List<Platform> mPlatformList = new ArrayList<>();
     private int mOneLineCount = 4;
 
+    public static ActivityResult activityResult;
+
+    public static ShareListener listener;
+
     public BaskShare(Activity activity) {
         this.mActivity = activity;
     }
@@ -39,13 +44,27 @@ public class BaskShare {
         Log.i(BASKSHARE, mPopupWindow.toString());
     }
 
-    public void setPlatForm(Platform... platForm){
+    public BaskShare setPlatForm(Platform... platForm){
         mPlatformList.clear();
         mPlatformList = Arrays.asList(platForm);
+        return this;
     }
 
-    public void setOneLineCount(int count){
+    public BaskShare setOneLineCount(int count){
         this.mOneLineCount = count;
+        return this;
     }
 
+    public BaskShare setListener(ShareListener listener){
+        this.listener = listener;
+        return this;
+    }
+
+//    public void setActivityResult(ActivityResult activityResult){
+//        this.activityResult = activityResult;
+//    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        activityResult.onActivityResult(requestCode, resultCode, data);
+    }
 }
