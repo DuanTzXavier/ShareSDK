@@ -22,6 +22,10 @@ android {
     }
 }
 
+repositories {
+    maven { url "https://dl.bintray.com/tomduan/maven" }
+}
+
 dependencies {
 
     def appDependencies = rootProject.ext.appDependencies
@@ -30,7 +34,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile appDependencies.appcompat
     compile appDependencies.butterKnife
-    compile project(path: ':shareroot')
+//    compile project(path: ':shareroot')
+    compile 'com.tomduan.shareroot:shareroot:unspecified'
     compile project(path: ':wechatsdk')
     compile project(path: ':tencentsdk')
     compile project(path: ':weibosdk')
