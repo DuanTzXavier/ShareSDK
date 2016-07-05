@@ -1,6 +1,6 @@
 package com.tomduan.wechatsdk;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 import android.util.Log;
 
 import com.tencent.mm.sdk.modelbase.BaseReq;
@@ -10,7 +10,7 @@ import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 /**
  * Created by bask on 6/30/16.
  */
-public class WXCallbackActivity extends AppCompatActivity implements IWXAPIEventHandler {
+public class WXCallbackActivity extends Activity implements IWXAPIEventHandler {
 
     @Override
     public void onReq(BaseReq baseReq) {

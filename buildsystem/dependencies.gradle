@@ -11,6 +11,8 @@ ext {
     androidTargetSdkVersion = 22
     androidCompileSdkVersion = 24
 
+    releaseVersion = "0.0.1"
+
     //Libraries
 //    daggerVersion = '2.0.2'
     butterKnifeVersion = '7.0.1'
