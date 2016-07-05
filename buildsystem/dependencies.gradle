@@ -1,0 +1,69 @@
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+ext {
+    //Android
+    androidBuildToolsVersion = "24.0.0"
+    androidMinSdkVersion = 15
+    androidTargetSdkVersion = 22
+    androidCompileSdkVersion = 24
+
+    //Libraries
+//    daggerVersion = '2.0.2'
+    butterKnifeVersion = '7.0.1'
+//    rxJavaVersion = '1.1.0'
+//    rxAndroidVersion = '1.1.0'
+//    retrofitVersion = '2.0.0'
+//    greenDAOVersion = "2.1.0"
+//    glideVersion = '3.7.0'
+//    slidableactivityVersion = '2.0.5'
+//    williamchartVersion = '2.2'
+//    zxingVersion = '1.8.4'
+//    iconsVersion = '2.5.10@aar'
+//    ioniconsVersion = '2.0.1.1@aar'
+//    fontawesomeVersion = '4.5.0.1@aar'
+//    pickerViewVersion = '2.0.8'
+//    pullrefreshVersion = '1.2.0'
+//    swipeLayoutVersion = '1.2.0@aar'
+//    crashreportVersion = 'latest.release'
+//    crashreportNDKVersion = 'latest.release'
+//    processbuttonVersion = '1.0.4'
+//    conciseclockVersion = '0.2.2'
+//    dialogVersion = '0.8.6.0'
+//    mutidexVersion = '1.0.1'
+
+    appDependencies = [
+//            daggerCompiler:     "com.google.dagger:dagger-compiler:${daggerVersion}",
+//            dagger:             "com.google.dagger:dagger:${daggerVersion}",
+//            rxJava:             "io.reactivex:rxjava:${rxJavaVersion}",
+//            rxAndroid:          "io.reactivex:rxandroid:${rxAndroidVersion}",
+            appcompat:          "com.android.support:appcompat-v7:${androidBuildToolsVersion}",
+//            design:             "com.android.support:design:${androidBuildToolsVersion}",
+//            supportV4:          "com.android.support:support-v4:${androidBuildToolsVersion}",
+            butterKnife:        "com.jakewharton:butterknife:${butterKnifeVersion}",
+//            retrofit:           "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+//            retrofitGson:       "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
+//            retrofitRxjava:     "com.squareup.retrofit2:adapter-rxjava:${retrofitVersion}",
+//            greenDAO:           "de.greenrobot:greendao:${greenDAOVersion}",
+//            glide:              "com.github.bumptech.glide:glide:${glideVersion}",
+//            slidableactivity:   "com.r0adkll:slidableactivity:${slidableactivityVersion}",
+//            williamchart:       "com.diogobernardino:williamchart:${williamchartVersion}",
+//            cardView:           "com.android.support:cardview-v7:${androidBuildToolsVersion}",
+//            qrscanner:          "me.dm7.barcodescanner:zxing:${zxingVersion}",
+//            iconsCore:          "com.mikepenz:iconics-core:${iconsVersion}",
+//            iconsIon:           "com.mikepenz:ionicons-typeface:${ioniconsVersion}",
+//            iconsFont:          "com.mikepenz:fontawesome-typeface:${fontawesomeVersion}",
+//            pickerView:         "com.bigkoo:pickerview:${pickerViewVersion}",
+//            pullrefresh:        "com.baoyz.pullrefreshlayout:library:${pullrefreshVersion}",
+//            swipeLayout:        "com.daimajia.swipelayout:library:${swipeLayoutVersion}",
+//            crashreport:        "com.tencent.bugly:crashreport_upgrade:${crashreportVersion}",
+//            crashreportNDK:     "com.tencent.bugly:nativecrashreport:${crashreportNDKVersion}",
+//            processbutton:      "com.github.dmytrodanylyk.android-process-button:library:${processbuttonVersion}",
+//            conciseclock:       "com.tomduan.conciseclock:library:${conciseclockVersion}",
+//            dialog:             "com.afollestad.material-dialogs:core:${dialogVersion}",
+//            multidex:           "com.android.support:multidex:${mutidexVersion}",
+    ]
+}

@@ -1,13 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.0"
+
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+
+    compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
+    buildToolsVersion globalConfiguration.getAt("androidBuildToolsVersion")
 
     defaultConfig {
         applicationId "com.tomduan.sharesdk"
-        minSdkVersion 15
-        targetSdkVersion 24
+        minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
+        targetSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
         versionCode 1
         versionName "1.0"
     }
@@ -20,10 +23,13 @@ android {
 }
 
 dependencies {
+
+    def appDependencies = rootProject.ext.appDependencies
+
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.0.0'
-    compile 'com.jakewharton:butterknife:7.0.1'
+    compile appDependencies.appcompat
+    compile appDependencies.butterKnife
     compile project(path: ':shareroot')
     compile project(path: ':wechatsdk')
     compile project(path: ':tencentsdk')
