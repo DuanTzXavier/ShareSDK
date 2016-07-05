@@ -14,6 +14,7 @@ import com.tomduan.tencentsdk.share.Q_zone;
 import com.tomduan.wechatsdk.share.WeChatCircle;
 import com.tomduan.wechatsdk.share.WeChatFavorite;
 import com.tomduan.wechatsdk.share.WeChatFriends;
+import com.tomduan.weibosdk.Weibo;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -46,7 +47,8 @@ public class MainActivity extends AppCompatActivity implements ShareListener {
                         new Platform(new QQFriends(this)),
                         new Platform(new WeChatCircle(this)),
                         new Platform(new WeChatFavorite(this)),
-                        new Platform(new WeChatFriends(this)));
+                        new Platform(new WeChatFriends(this)),
+                        new Platform(new Weibo(this)));
     }
 
     @OnClick(R.id.test)

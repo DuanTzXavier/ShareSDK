@@ -11,7 +11,7 @@ import com.tomduan.shareroot.Platform;
 /**
  * Created by bask on 6/30/16.
  */
-public abstract class WeChatPlatform {
+public class WeChatPlatform {
 
     private Application application;
 

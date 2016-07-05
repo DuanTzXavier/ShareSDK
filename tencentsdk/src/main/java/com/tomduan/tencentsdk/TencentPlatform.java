@@ -29,7 +29,6 @@ public class TencentPlatform implements ActivityResult{
         ApplicationInfo info = activity.getApplication().getApplicationInfo();
         appId = String.valueOf(info.metaData.getInt("qq_id"));
         appKey = info.metaData.getString("qq_key");
-
         initTencent();
     }
 

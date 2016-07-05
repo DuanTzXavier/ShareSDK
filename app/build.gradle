@@ -27,4 +27,5 @@ dependencies {
     compile project(path: ':shareroot')
     compile project(path: ':wechatsdk')
     compile project(path: ':tencentsdk')
+    compile project(path: ':weibosdk')
 }
