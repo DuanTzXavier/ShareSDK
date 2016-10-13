@@ -1,0 +1,218 @@
+buildscript {
+    repositories {
+        maven { url "http://maven.dev.sh.ctripcorp.com:8081/nexus/content/groups/public" }
+    }
+    dependencies {
+        classpath 'net.sf.proguard:proguard-gradle:5.2.1'
+        classpath 'org.json:json:+'
+    }
+}
+
+configurations {
+    needBuildFile
+}
+
+import org.json.JSONArray
+import org.json.JSONObject
+
+public class CtripVersionManager{
+    private static final INSTANCE= new CtripVersionManager();
+    public static getInstance() { return INSTANCE }
+    private String mResponse = null
+    private long timeStamp = 0
+    private static final long REQUEST_CACHE_TOME_DELAY = 10 * 60 * 1000
+    private Map<String, String[]> mMap = new HashMap<>();
+
+    private CtripVersionManager() {
+        NodeList nodeList = new XmlParser().parse(new File("apk_module_complie_config.xml")).children()
+        for(Node node : nodeList) {
+            mMap.put(node.attribute("moduleName"), node.attribute("childModule").toString().split(","))
+        }
+    }
+
+    public String getVersion(moduleName,versionPath) {
+        long startTime = System.currentTimeMillis();
+        String mVersion = doRequest(moduleName,versionPath)
+        println "Module : " + moduleName + " bundleVersion : " + mVersion + " elapse time : " + ((System.currentTimeMillis() - startTime) + " ms!")
+        return mVersion
+    }
+
+    private String doRequest(moduleName, versionPath) {
+        String mVersion = "1.0"
+        String response = getVersionResponse(versionPath)
+        //解析json 对象
+        JSONArray jsonArray = new JSONArray(response)
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject object = jsonArray.getJSONObject(i)
+            def moduleCode = object.optString("moduleCode","")
+            def version = object.optString("bundleVersion","")
+            if ("$moduleCode" == moduleName) {
+                mVersion = version
+                break
+            }
+        }
+        return mVersion
+    }
+
+    public String getVersionResponse(versionPath) {
+        if(mResponse == null || System.currentTimeMillis() - timeStamp > REQUEST_CACHE_TOME_DELAY){
+            URL html = new URL(versionPath);
+            URLConnection urlConnection = html.openConnection();
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(urlConnection.getInputStream(), "utf-8"));
+            StringBuffer response = new StringBuffer();
+            String inputLine;
+            while ((inputLine = reader.readLine()) != null) {
+                response.append(inputLine)
+            }
+            reader.close();
+            mResponse = response.toString()
+            timeStamp = System.currentTimeMillis()
+        }
+        return mResponse
+    }
+
+    public void checkUpdate(String versionPath, String TypeAAR, String buildDir) {
+        JSONObject json = new JSONObject()
+        json.put("code", TypeAAR)
+        if (needToUpdateBundle(versionPath, TypeAAR, buildDir)) {
+            String[] bundles = mMap.get(TypeAAR)
+            if (bundles != null && bundles.length > 0) {
+                JSONArray array = new JSONArray()
+                json.put("status", false)
+                for(String str : bundles) {
+                    array.put(str.trim())
+                }
+                json.put("list", array)
+            } else {
+                json.put("status", true)
+            }
+        } else {
+            json.put("status", true)
+        }
+        PrintWriter printWriter = new PrintWriter(new File("build.json"));
+        printWriter.write(json.toString())
+        printWriter.close();
+
+    }
+
+	public boolean needToUpdateBundle(String versionPath, String TypeAAR, String buildDir) {
+		Map<String, String> oldResource;
+		Map<String, String> newResource;
+		oldResource = readUrl(getResourceFileUrl(versionPath, TypeAAR));
+		newResource = readFile(getNativeResourceFile(buildDir));
+		Set<String> set = oldResource.keySet();
+		boolean isEqual = true;
+		for (String key : set) {
+			if (!oldResource.get(key).equals(newResource.get(key))) {
+                isEqual = false;
+				 break;
+			}
+		}
+        return !isEqual;
+	}
+
+    public Map<String, String> readUrl(String url) {
+        Map<String, String> map = new HashMap<>()
+        if (url != "" && url.length() > 0) {
+            try {
+                URL html = new URL(url);
+                URLConnection urlConnection = html.openConnection();
+                map = getMapFromInputStream(urlConnection.getInputStream())
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return map;
+    }
+
+	public Map<String, String> readFile(File file) {
+		Map<String, String> map = new HashMap<>();
+        try {
+            map = getMapFromInputStream(new FileInputStream(file))
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return map;
+	}
+
+    private Map<String, String> getMapFromInputStream(InputStream inputStream) {
+        Map<String, String> map = new HashMap<>()
+        InputStreamReader inputreader = null;
+        BufferedReader buffreader = null;
+        try {
+            inputreader = new InputStreamReader(inputStream, "utf-8");
+            buffreader = new BufferedReader(inputreader);
+            String line;
+            int lineNumber = 0;
+            while ((line = buffreader.readLine()) != null) {
+                lineNumber++;
+                String[] tmp = line.split(" ");
+
+                if (!tmp[0].equals("int[]")) {
+                    map.put(tmp[1] + "+" + tmp[2], tmp[3]);
+                } else {
+                    map.put(tmp[1] + "+" + tmp[2], line);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace()
+        } finally {
+            try {
+                if (inputStream != null) { inputStream.close(); }
+                if (inputreader != null) { inputreader.close(); }
+                if (buffreader != null) { buffreader.close(); }
+            } catch (Exception e) {
+            }
+        }
+        return map
+    }
+
+    public String getResourceFileUrl(String versionPath, String TypeAAR) {
+        String aarName = TypeAAR.equalsIgnoreCase("CTBusiness") ? "CtripMain" : TypeAAR;
+        String url = "";
+        String response = getVersionResponse(versionPath);
+        //解析json 对象
+        JSONArray jsonArray = new JSONArray(response)
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject object = jsonArray.getJSONObject(i)
+            def moduleCode = object.optString("moduleCode", "")
+            def version = object.optString("bundleVersion", "")
+            if ("$moduleCode" == aarName) {
+                url = object.optString("nexusUrl", "") + "/" + aarName + "-" + version + "-R.txt"
+                if (TypeAAR.equalsIgnoreCase("CTBusiness")) {
+                    url = url.replace(aarName, TypeAAR)
+                }
+                break;
+            }
+        }
+        return url;
+    }
+
+    public File getNativeResourceFile(String buildDir) {
+        String file = buildDir + "/intermediates/bundles/release/R.txt" ;
+        return new File(file);
+    }
+}
+def getCtripVersion(moduleName,versionPath) {
+    return CtripVersionManager.getInstance().getVersion(moduleName,versionPath)
+}
+
+def getCtripResponse(versionPath){
+    return CtripVersionManager.getInstance().getVersionResponse(versionPath)
+}
+
+def checkUpdate(versionPath, TypeAAR, buildDir) {
+    CtripVersionManager.getInstance().checkUpdate(versionPath, TypeAAR, buildDir)
+}
+
+task checkResource {
+    if (rootProject.hasProperty('versionPath') && rootProject.hasProperty('TypeAAR') && rootProject.hasProperty('buildDir') ) {
+    }
+}
+
+ext{
+    getCtripVersion = this.&getCtripVersion
+    getCtripResponse = this.&getCtripResponse
+    checkUpdate = this.&checkUpdate
+}

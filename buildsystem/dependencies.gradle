@@ -6,7 +6,7 @@ allprojects {
 
 ext {
     //Android
-    androidBuildToolsVersion = "24.0.0"
+    androidBuildToolsVersion = "24.0.2"
     androidMinSdkVersion = 15
     androidTargetSdkVersion = 22
     androidCompileSdkVersion = 24
@@ -42,7 +42,7 @@ ext {
 //            dagger:             "com.google.dagger:dagger:${daggerVersion}",
 //            rxJava:             "io.reactivex:rxjava:${rxJavaVersion}",
 //            rxAndroid:          "io.reactivex:rxandroid:${rxAndroidVersion}",
-            appcompat:          "com.android.support:appcompat-v7:${androidBuildToolsVersion}",
+            appcompat:          "com.android.support:appcompat-v7:24.0.0",
 //            design:             "com.android.support:design:${androidBuildToolsVersion}",
 //            supportV4:          "com.android.support:support-v4:${androidBuildToolsVersion}",
             butterKnife:        "com.jakewharton:butterknife:${butterKnifeVersion}",

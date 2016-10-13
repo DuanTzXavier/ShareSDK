@@ -1,0 +1,75 @@
+apply plugin: 'com.android.library'
+
+apply from: "${rootDir}/gradle/global_config.gradle"
+
+apply from: "${rootDir}/gradle/publish2Nexus.gradle"
+
+apply from: "${rootDir}/gradle/common_build.gradle"
+
+version ctripVersionName
+
+if (rootProject.hasProperty('bundleVersion')) {
+    version "$bundleVersion"
+}
+
+android {
+
+    defaultConfig {
+        versionCode 1
+        versionName project.version
+    }
+}
+
+def dependencyVersion = '+'
+if (rootProject.hasProperty('versionPath')) {
+    dependencyVersion = getCtripVersion("CtripMain", "$versionPath")
+} else {
+    dependencyVersion = getCtripVersion("CtripMain", ctripVersionUrl)
+}
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile "com.android.support:support-v4:23.0.1"
+    compile 'com.android.support:appcompat-v7:23.0.1'
+    compile 'com.android.support:recyclerview-v7:23.0.1'
+    compile ':Alipay_Lib:+@aar'
+    compile ':BaiduWallet_Lib:+@aar'
+    if (projectList != null && projectList.size() > 0) {
+        if (projectList.contains("CTBusiness")) {
+            compile project(':CTBusiness')
+        } else {
+            compile "ctrip.wireless.android:CTBusiness:${dependencyVersion}:AAR@aar"
+        }
+        if (projectList.contains("CtripShareLib")) {
+            compile project(':CtripShareLib')
+        } else {
+            compile ':CtripShareLib:+@aar'
+        }
+        if (projectList.contains("CTFoundationLib")) {
+            compile project(':CTFoundationLib')
+        } else {
+            compile ':CTFoundationLib:+@aar'
+        }
+        if (projectList.contains("CTCommunicationLib")) {
+            compile project(':CTCommunicationLib')
+        } else {
+            compile ':CTCommunicationLib:+@aar'
+        }
+        if (projectList.contains("CTDatabaseLib")) {
+            compile project(':CTDatabaseLib')
+        } else {
+            compile ':CTDatabaseLib:+@aar'
+        }
+        if (projectList.contains("CTPersonInfo")) {
+            compile project(':CTPersonInfo')
+        } else {
+            compile "ctrip.wireless.android:CTPersonInfo:${dependencyVersion}:AAR@aar"
+        }
+    } else {
+        compile ':CTCommunicationLib:+@aar'
+        compile ':CTFoundationLib:+@aar'
+        compile ':CtripShareLib:+@aar'
+        compile ':CTDatabaseLib:+@aar'
+        compile "ctrip.wireless.android:CTPersonInfo:${dependencyVersion}:AAR@aar"
+        compile "ctrip.wireless.android:CTBusiness:${dependencyVersion}:AAR@aar"
+    }
+}

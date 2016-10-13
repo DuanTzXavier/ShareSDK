@@ -35,7 +35,6 @@ dependencies {
     compile appDependencies.appcompat
     compile appDependencies.butterKnife
 //    compile project(path: ':shareroot')
-    compile 'com.tomduan.shareroot:shareroot:unspecified'
     compile project(path: ':wechatsdk')
     compile project(path: ':tencentsdk')
     compile project(path: ':weibosdk')

@@ -1,0 +1,43 @@
+//def notInSonar = ['CTCommunicationLib', 'CTCustomerService', 'CTDatabaseLib', 'CTDebug',
+//  'CTHotelMap', 'CTHotelOrder', 'CTHotelPassenger', 'CTQrcode',
+//'CTWebDAV', 'CtripMain', 'CtripShareLib']
+
+def notInSonar = []
+
+
+configure(subprojects.findAll { !notInSonar*.toLowerCase().contains(it.name.toLowerCase()) }) {
+
+    apply plugin: "org.sonarqube"
+
+    sonarqube {
+        properties {
+            property "sonar.projectKey", "com.ctrip.android.lint." + project.name.replaceFirst("CT", "").toLowerCase()
+            property "sonar.projectName", "${project.name}-Android"
+            property "sonar.profile", 'Android Lint'
+
+            if (rootProject.hasProperty('lintVersion')) {
+                property "sonar.projectVersion", lintVersion
+            } else {
+                property "sonar.projectVersion", ctripVersionName
+            }
+            property "sonar.sources", "./src"
+            property "sonar.binaries", "./build/intermediates/classes/debug"
+            // 这个地址使用global_config.gradle中的配置
+            property "sonar.android.lint.report", "${ctripRoot}/build-outputs/lint/${project.name}_lint-report.xml"
+            property "sonar.verbose", "false"
+
+            if (file('./test/java').exists()) {
+                property "sonar.tests", "./test/java"
+                property "sonar.junit.reportsPath", "./build/test-results/debug"
+                property "sonar.jacoco.reportPath", "./build/jacoco/testDebugUnitTest.exec"
+
+            }
+
+            property "sonar.host.url", sonarHostUrl
+
+            property "sonar.jdbc.username", sonarJdbcUsername
+            property "sonar.jdbc.password", sonarJdbcPassword
+            property "sonar.jdbc.url", sonarJdbcUrl
+        }
+    }
+}
